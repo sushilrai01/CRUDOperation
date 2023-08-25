@@ -1,0 +1,21 @@
+﻿body {
+    background-color: gray;
+}
+
+.container{
+    text-align:center;
+}
+
+.table {
+    display: inline-block;
+    text-align: left;
+}
+
+table, th, td {
+    border: 1px solid;
+    color: black;
+}
+
+.form-horizontal{
+    text-align: center;
+}

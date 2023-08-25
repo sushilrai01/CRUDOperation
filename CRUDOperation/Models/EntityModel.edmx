@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TestStudentxxlModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ClassDetail">
+          <Key>
+            <PropertyRef Name="Class" />
+          </Key>
+          <Property Name="Class" Type="int" Nullable="false" />
+          <Property Name="Teacher" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Total" Type="int" />
+        </EntityType>
+        <EntityType Name="GenderDetails">
+          <Key>
+            <PropertyRef Name="Gid" />
+          </Key>
+          <Property Name="Gid" Type="int" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="StudentDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Grade" Type="int" Nullable="false" />
+          <Property Name="gender" Type="int" />
+        </EntityType>
+        <Association Name="FK__StudentDe__gende__70DDC3D8">
+          <End Role="GenderDetails" Type="Self.GenderDetails" Multiplicity="0..1" />
+          <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GenderDetails">
+              <PropertyRef Name="Gid" />
+            </Principal>
+            <Dependent Role="StudentDetail">
+              <PropertyRef Name="gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentDetail_ClassDetail">
+          <End Role="ClassDetail" Type="Self.ClassDetail" Multiplicity="1" />
+          <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassDetail">
+              <PropertyRef Name="Class" />
+            </Principal>
+            <Dependent Role="StudentDetail">
+              <PropertyRef Name="Grade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestStudentxxlModelStoreContainer">
+          <EntitySet Name="ClassDetail" EntityType="Self.ClassDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GenderDetails" EntityType="Self.GenderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentDetail" EntityType="Self.StudentDetail" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__StudentDe__gende__70DDC3D8" Association="Self.FK__StudentDe__gende__70DDC3D8">
+            <End Role="GenderDetails" EntitySet="GenderDetails" />
+            <End Role="StudentDetail" EntitySet="StudentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentDetail_ClassDetail" Association="Self.FK_StudentDetail_ClassDetail">
+            <End Role="ClassDetail" EntitySet="ClassDetail" />
+            <End Role="StudentDetail" EntitySet="StudentDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestStudentxxlModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ClassDetail">
+          <Key>
+            <PropertyRef Name="Class" />
+          </Key>
+          <Property Name="Class" Type="Int32" Nullable="false" />
+          <Property Name="Teacher" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Total" Type="Int32" />
+          <NavigationProperty Name="StudentDetail" Relationship="TestStudentxxlModel.FK_StudentDetail_ClassDetail" FromRole="ClassDetail" ToRole="StudentDetail" />
+        </EntityType>
+        <EntityContainer Name="TestStudentxxlEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClassDetails" EntityType="Self.ClassDetail" />
+          <EntitySet Name="StudentDetail" EntityType="TestStudentxxlModel.StudentDetail" />
+          <AssociationSet Name="FK_StudentDetail_ClassDetail" Association="TestStudentxxlModel.FK_StudentDetail_ClassDetail">
+            <End Role="ClassDetail" EntitySet="ClassDetails" />
+            <End Role="StudentDetail" EntitySet="StudentDetail" />
+          </AssociationSet>
+          <EntitySet Name="GenderDetails" EntityType="TestStudentxxlModel.GenderDetails" />
+          <AssociationSet Name="FK__StudentDe__gende__70DDC3D8" Association="TestStudentxxlModel.FK__StudentDe__gende__70DDC3D8">
+            <End Role="GenderDetails" EntitySet="GenderDetails" />
+            <End Role="StudentDetail" EntitySet="StudentDetail" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="StudentDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Grade" Type="Int32" Nullable="false" />
+          <Property Name="gender" Type="Int32" />
+          <NavigationProperty Name="ClassDetail" Relationship="TestStudentxxlModel.FK_StudentDetail_ClassDetail" FromRole="StudentDetail" ToRole="ClassDetail" />
+          <NavigationProperty Name="GenderDetails" Relationship="TestStudentxxlModel.FK__StudentDe__gende__70DDC3D8" FromRole="StudentDetail" ToRole="GenderDetails" />
+        </EntityType>
+        <Association Name="FK_StudentDetail_ClassDetail">
+          <End Type="TestStudentxxlModel.ClassDetail" Role="ClassDetail" Multiplicity="1" />
+          <End Type="TestStudentxxlModel.StudentDetail" Role="StudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassDetail">
+              <PropertyRef Name="Class" />
+            </Principal>
+            <Dependent Role="StudentDetail">
+              <PropertyRef Name="Grade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GenderDetails">
+          <Key>
+            <PropertyRef Name="Gid" />
+          </Key>
+          <Property Name="Gid" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StudentDetail" Relationship="TestStudentxxlModel.FK__StudentDe__gende__70DDC3D8" FromRole="GenderDetails" ToRole="StudentDetail" />
+        </EntityType>
+        <Association Name="FK__StudentDe__gende__70DDC3D8">
+          <End Type="TestStudentxxlModel.GenderDetails" Role="GenderDetails" Multiplicity="0..1" />
+          <End Type="TestStudentxxlModel.StudentDetail" Role="StudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GenderDetails">
+              <PropertyRef Name="Gid" />
+            </Principal>
+            <Dependent Role="StudentDetail">
+              <PropertyRef Name="gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestStudentxxlModelStoreContainer" CdmEntityContainer="TestStudentxxlEntities1">
+          <EntitySetMapping Name="ClassDetails">
+            <EntityTypeMapping TypeName="TestStudentxxlModel.ClassDetail">
+              <MappingFragment StoreEntitySet="ClassDetail">
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="Teacher" ColumnName="Teacher" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentDetail">
+            <EntityTypeMapping TypeName="TestStudentxxlModel.StudentDetail">
+              <MappingFragment StoreEntitySet="StudentDetail">
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GenderDetails">
+            <EntityTypeMapping TypeName="TestStudentxxlModel.GenderDetails">
+              <MappingFragment StoreEntitySet="GenderDetails">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Gid" ColumnName="Gid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,68 @@
+﻿@model CRUDOperation.Models.StudentDetail
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Individual Details</title>
+    <link rel="icon" type="image/x-icon" href="~/Content/student.png">
+    <link rel="stylesheet" type="text/css" href="~/Content/site.css" />
+
+
+</head>
+<body>
+    <div class="container">
+        <div style="margin-top:20px"> @Html.ActionLink("<- Go to Homepage", "Index")</div>
+        <table class="table" style="margin-top:5px">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Age)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassDetail.Class)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassDetail.Teacher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassDetail.Total)
+                </th>
+
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ClassDetail.Class)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ClassDetail.Teacher)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ClassDetail.Total)
+                </td>
+
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
